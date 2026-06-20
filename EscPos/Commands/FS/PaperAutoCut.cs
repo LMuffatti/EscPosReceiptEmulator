@@ -1,7 +1,7 @@
 ﻿using ReceiptPrinterEmulator.Emulator;
 using ReceiptPrinterEmulator.Emulator.Enums;
 
-namespace ReceiptPrinterEmulator.EscPos.Commands.ESC;
+namespace ReceiptPrinterEmulator.EscPos.Commands.FS;
 
 /// <summary>
 /// 2024.02.18 Leo

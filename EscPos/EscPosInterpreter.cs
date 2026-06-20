@@ -50,6 +50,8 @@ public class EscPosInterpreter
         RegisterCommand(new ItalicOffCommand());
         RegisterCommand(new ItalicOnCommand());
         RegisterCommand(new SelectFontCommand());
+        RegisterCommand(new SelectCharsetCommand());
+        RegisterCommand(new SelectCharTableCommand()); 
         RegisterCommand(new SelectJustificationCommand());
         RegisterCommand(new SetDefaultLineSpacingCommand());
         RegisterCommand(new SetLineSpacingCommand());
@@ -69,6 +71,7 @@ public class EscPosInterpreter
         RegisterCommand(new SelectCharacterSizeCommand());
         RegisterCommand(new SelectCutModeAndCutCommand());
         RegisterCommand(new PaperEjectCommand()); // 0x1D, 0x65, n, [m, t]
+        RegisterCommand(new PrintRasterBitImageCommand());
     }
 
     private void RegisterCommand(BaseCommand command)
@@ -227,6 +230,7 @@ public class EscPosInterpreter
             if (currentChar == ESC || currentChar == FS || currentChar == GS)
             {
                 // ESC, FS and GS commands - begin command mode
+                _printer.PrintText(FinalizePrintBuffer());
                 _interpretingCommandPrefix = true;
 
                 _commandBuffer.Clear();
@@ -254,7 +258,7 @@ public class EscPosInterpreter
     public static readonly char CR = Convert.ToChar(13);  // 0x0D
     public static readonly char DLE = Convert.ToChar(16); // 0x10
     public static readonly char CAN = Convert.ToChar(24); // 0x18
-    public static readonly char ESC = Convert.ToChar(27); // 0x1E
+    public static readonly char ESC = Convert.ToChar(27); // 0x1B
     public static readonly char FS = Convert.ToChar(28);  // 0x1C
     public static readonly char GS = Convert.ToChar(29);  // 0x1D
 }
