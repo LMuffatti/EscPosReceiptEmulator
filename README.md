@@ -63,6 +63,15 @@ This program emulates a printer with the following specifications:
  - ASCII Font D: 16x24 pixels
  - Automatic line feed
 
+Tested with dumps from these printers:
+	
+	- Aqprox appPOS80AM 
+	- Custom VKP80II & VKP80III
+	- Epson TM-T88IV
+	- Sanei SK1-31
+	- SNBC BK-T680
+	- Unyka UK9520U
+
 ### References
 
 https://aures-support.com/DATA/drivers/Imprimantes/Commande%20ESCPOS.pdf<br>
