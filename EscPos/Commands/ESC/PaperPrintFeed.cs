@@ -10,7 +10,7 @@ namespace ReceiptPrinterEmulator.EscPos.Commands.ESC;
 /// </summary>
 public class PaperPrintFeed : BaseCommand
 {
-	public override string Prefix => EscPosInterpreter.ESC + "J";
+	public override string Prefix => EscPosInterpreter.ESC + "j";
 	public override bool HasArgs => true;
 
 	private byte _n;
