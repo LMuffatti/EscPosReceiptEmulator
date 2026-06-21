@@ -65,12 +65,12 @@ This program emulates a printer with the following specifications:
 
 Tested with dumps from these printers:
 	
-	- Aqprox appPOS80AM 
-	- Custom VKP80II & VKP80III
-	- Epson TM-T88IV
-	- Sanei SK1-31
-	- SNBC BK-T680
-	- Unyka UK9520U
+ - Aqprox appPOS80AM 
+ - Custom VKP80II & VKP80III
+ - Epson TM-T88IV
+ - Sanei SK1-31
+ - SNBC BK-T680
+ - Unyka UK9520U
 
 ### References
 
