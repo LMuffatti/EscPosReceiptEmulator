@@ -40,7 +40,7 @@ public class Receipt
 
     public void ChangeFontConfiguration(PrintMode printMode)
     {
-        FinalizeTextLine(false);
+        //FinalizeTextLine(false);
 
         _printMode = printMode.Clone();
     }
@@ -57,21 +57,21 @@ public class Receipt
 
     private ReceiptTextLine CreateNewTextLine() => new(_paperConfiguration, _printMode);
     
-    public void PrintText(string text)
+    public void PrintText(string text, PrintMode mode)
     {
         if (_currentTextLine is null)
             _currentTextLine = CreateNewTextLine();
 
         for (var i = 0; i < text.Length; i++)
         {
-            var canContinue = _currentTextLine.TryWriteChar(text[i]);
+            var canContinue = _currentTextLine.TryWriteChar(text[i], mode);
 
             if (!canContinue)
             {
                 FinalizeTextLine(false);
 
                 _currentTextLine = CreateNewTextLine();
-                canContinue = _currentTextLine.TryWriteChar(text[i]);
+                canContinue = _currentTextLine.TryWriteChar(text[i], mode);
 
                 if (!canContinue)
                     throw new Exception("Logic error - line must be able to contain > 0 chars");
@@ -95,6 +95,13 @@ public class Receipt
     }
 
     public void AdvanceToNewLine() => FinalizeTextLine(true);
+
+    public void PrintBitmap(Bitmap image)
+    {
+        FinalizeTextLine(false);
+
+        _renderLines.Add(new ReceiptBitmapLine(_paperConfiguration, image));
+    }
 
     public int GetTotalPrintHeight()
         => _renderLines.Sum(line => line.GetPrintHeight());

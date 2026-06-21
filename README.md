@@ -1,11 +1,6 @@
 ﻿# ESC/POS Receipt Printer Emulator
 🖨️ **This app emulates a networked receipt printer to test your ESC/POS commands against.**
 
-![image info](Docs/Example1.png)
-<br>
-and also<br>
-![image info](Docs/Example2.png)
-
 ### About
 - Windows application (WPF + .NET 6)
 - Binds to a TCP/IP interface and listens for ESC/POS commands
@@ -27,6 +22,8 @@ and also<br>
   - Initialize printer (`ESC @`)
   - Toggle italic (`ESC 4` / `ESC 5`)
   - Select font (`ESC M`)
+  - Select charset (`ESC R`)
+  - Select character table (`ESC t`)
   - Select justification (`ESC a`)
   - Select line spacing (`ESC 2` / `ESC 3`)
   - Toggle emphasis (`ESC E`)
@@ -37,12 +34,21 @@ and also<br>
   - Paper feed N lines (`ESC d`)
   - Paper feed (`ESC J`)
 - FS Commands:
-  - Print stored logo (`FS p`)
-  - Paper auto cut (`FS }`)
+  - Print stored logo (`FS p n m`)
+  - Paper auto cut (`FS } 0x60 n`)
 - GS Commands:
   - Select character size 
   - Select cut mode and cut paper
-  - Paper eject (`GS e`)
+  - Paper eject (`GS e n [m t]`)
+  - Print raster image (`GS v 0 [m xL xH yL yH ...pixels]`)
+
+### Example
+
+![image info](Docs/Example1.png)
+<br>
+and also
+<br>
+![image info](Docs/Example2.png)
 
 ### Emulated printer
 
