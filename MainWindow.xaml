@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="ESC/POS Receipt Printer Emulator v1.02"
-        Height="800" Width="730" MinWidth="730"
+        Height="800" Width="850" MinWidth="850"
         Background="#262626"
         Loaded="MainWindow_OnLoaded"
         >
