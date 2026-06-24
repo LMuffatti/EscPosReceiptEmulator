@@ -22,6 +22,7 @@ public class Receipt
     private ReceiptTextLine? _currentTextLine;
     private int _lineSpacing;
     private int _tabSpacing;
+    private bool _skiplinefeed; 
 
     public bool IsEmpty => (_currentTextLine == null || _currentTextLine.IsEmpty) && _renderLines.Count == 0;
 
@@ -36,6 +37,7 @@ public class Receipt
         _currentTextLine = null;
         _lineSpacing = lineSpacing;
         _tabSpacing = paperConfiguration.DefaultTabSpacing;
+        _skiplinefeed = false;
     }
 
     public void ChangeFontConfiguration(PrintMode printMode)
@@ -101,7 +103,11 @@ public class Receipt
         FinalizeTextLine(false);
 
         _renderLines.Add(new ReceiptBitmapLine(_paperConfiguration, image));
+        _skiplinefeed = true;
     }
+    
+    public bool GetSkipLineFeed() => _skiplinefeed;
+    public bool ResetSkipLineFeed() => _skiplinefeed = false;
 
     public int GetTotalPrintHeight()
         => _renderLines.Sum(line => line.GetPrintHeight());
