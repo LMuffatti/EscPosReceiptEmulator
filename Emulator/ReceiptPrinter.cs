@@ -41,7 +41,7 @@ public class ReceiptPrinter
 
     public void FeedEscPos(string ascii)
     {
-        if (ascii.Length>10000)
+        if (ascii.Length > 10000)
         {
             File.WriteAllText("last_ticket.bin", ascii, Encoding.ASCII);
         }

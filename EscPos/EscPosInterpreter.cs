@@ -61,7 +61,7 @@ public class EscPosInterpreter
         RegisterCommand(new PaperFullCut()); // 0x1B, 0x6D
         RegisterCommand(new PaperPartialCut()); // 0x1B, 0x69
         RegisterCommand(new PaperPrintFeednLines()); // 0x1B, 0x64
-        RegisterCommand(new PaperPrintFeed()); // 0x1B, 0x4A
+        RegisterCommand(new PaperPrintFeed()); // 0x1B, 0x4A, n
         
         // FS = 0x1C
         RegisterCommand(new PrintStoredLogo()); // 0x1C, 0x70, n, m
@@ -71,7 +71,7 @@ public class EscPosInterpreter
         RegisterCommand(new SelectCharacterSizeCommand());
         RegisterCommand(new SelectCutModeAndCutCommand());
         RegisterCommand(new PaperEjectCommand()); // 0x1D, 0x65, n, [m, t]
-        RegisterCommand(new PrintRasterBitImageCommand());
+        RegisterCommand(new PrintRasterBitImageCommand()); // 0x1D, 0x76, 0x30, m, xL, xH, yL, yH, d1...dk (if there is a line feed just after should be ignored)
     }
 
     private void RegisterCommand(BaseCommand command)
@@ -158,7 +158,7 @@ public class EscPosInterpreter
                 	if (i > 0) byteText = string.Format("0x{0:X2} 0x{1:X2}", (int)ascii[i - 1], (int)ascii[i]);
                 	else byteText = string.Format("0x{0:X2}", (int)ascii[i]);
                 	
-                	throw new InvalidOperationException("Invalid or unsupported command encountered: " + byteText);
+                	throw new InvalidOperationException($"Invalid or unsupported command [{i}] encountered: [{byteText}]");
                 }
 
                 if (_commandRegistry.ContainsKey(commandText))
@@ -230,7 +230,7 @@ public class EscPosInterpreter
             if (currentChar == ESC || currentChar == FS || currentChar == GS)
             {
                 // ESC, FS and GS commands - begin command mode
-                _printer.PrintText(FinalizePrintBuffer());
+                //_printer.PrintText(FinalizePrintBuffer());
                 _interpretingCommandPrefix = true;
 
                 _commandBuffer.Clear();

@@ -2,7 +2,7 @@
 🖨️ **This app emulates a networked receipt printer to test your ESC/POS commands against.**
 
 ### About
-- Windows application (WPF + .NET 6)
+- Windows application (WPF + .NET 9)
 - Binds to a TCP/IP interface and listens for ESC/POS commands
 - Logs commands and visually represents the resulting receipt(s)
 - With italics text cutting bug corrected
@@ -32,7 +32,7 @@
   - Paper full cut (`ESC m`)
   - Paper partial cut (`ESC i`)
   - Paper feed N lines (`ESC d`)
-  - Paper feed (`ESC J`)
+  - Paper feed (`ESC J n`)
 - FS Commands:
   - Print stored logo (`FS p n m`)
   - Paper auto cut (`FS } 0x60 n`)
@@ -44,11 +44,11 @@
 
 ### Example
 
-![image info](Docs/Example1.png)
+![Example #1](Docs/Example1.png)
 <br>
 and also
 <br>
-![image info](Docs/Example2.png)
+![Example #2](Docs/Example2.png)
 
 ### Emulated printer
 
@@ -65,7 +65,7 @@ This program emulates a printer with the following specifications:
 
 Tested with dumps from these printers:
 	
- - Aqprox appPOS80AM 
+ - Aqprox appPOS80AM (Driver: https://www.aqproxtpv.es/es/index.php?controller=attachment&id_attachment=13)
  - Custom VKP80II & VKP80III
  - Epson TM-T88IV
  - Sanei SK1-31
