@@ -116,9 +116,9 @@ public class Receipt
             if (!_currentTextLine.IsEmpty)
                 _renderLines.Add(_currentTextLine);
             _currentTextLine = null;
-        }    	
-				
-				_renderLines.Add(new ReceiptEmptyLine(nDots));
+        }     
+        
+        if (nDots > 0) _renderLines.Add(new ReceiptEmptyLine(nDots));
     }
 
     public int GetTotalPrintHeight()
