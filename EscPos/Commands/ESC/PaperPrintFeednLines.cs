@@ -5,7 +5,7 @@ namespace ReceiptPrinterEmulator.EscPos.Commands.ESC;
 
 /// <summary>
 /// 2024.02.18 Leo
-/// Paper Movement Commands
+/// Paper line movement command
 /// https://escpos.readthedocs.io/en/latest/paper_movement.html#print-and-feed-paper-n-lines-1b-64-phx
 /// </summary>
 public class PaperPrintFeednLines : BaseCommand

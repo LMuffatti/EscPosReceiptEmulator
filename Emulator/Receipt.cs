@@ -109,6 +109,18 @@ public class Receipt
     public bool GetSkipLineFeed() => _skiplinefeed;
     public bool ResetSkipLineFeed() => _skiplinefeed = false;
 
+    public void FeedDotLines(int nDots)
+    {
+        if (_currentTextLine != null)
+        {
+            if (!_currentTextLine.IsEmpty)
+                _renderLines.Add(_currentTextLine);
+            _currentTextLine = null;
+        }    	
+				
+				_renderLines.Add(new ReceiptEmptyLine(nDots));
+    }
+
     public int GetTotalPrintHeight()
         => _renderLines.Sum(line => line.GetPrintHeight());
 
