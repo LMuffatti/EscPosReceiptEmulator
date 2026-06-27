@@ -4,8 +4,8 @@
 ## Basics
 
 ### What is it
-- ESC/POS is a command [standard created by Epson](https://reference.epson-biz.com/modules/ref_escpos/index.php)
-- The standard is dated but it's well supported by modern receipt printers
+- ESC/POS© is a command [standard created by Epson](https://reference.epson-biz.com/modules/ref_escpos/index.php)
+- It is well supported by modern receipt printers
 
 ### General structure
 - Commands are typically sent over a TCP/IP or USB or Serial interface
