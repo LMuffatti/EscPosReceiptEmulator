@@ -18,7 +18,6 @@ public class PrintRasterBitImageCommandSanei : BaseCommand
     public override bool HasArgs => true;
 
     private int n = 0;
-    private int m = 0x00;
     private int xL = 0x00;
     private int xH = 0x00;
     private int width = 0;
@@ -55,7 +54,6 @@ public class PrintRasterBitImageCommandSanei : BaseCommand
     public override void Reset()
     {
         n = 0;
-        m = 0x00;
         xL = 0x00;
         xH = 0x00;
         width = 0;
