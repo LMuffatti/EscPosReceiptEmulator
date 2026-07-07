@@ -8,7 +8,7 @@ namespace ReceiptPrinterEmulator.EscPos.Commands.GS;
 /// </summary>
 public class PaperEjectCommand : BaseCommand
 {
-    public override string Prefix => EscPosInterpreter.GS + "E";
+    public override string Prefix => EscPosInterpreter.GS + "e";
     public override bool HasArgs => true;
     
     private int _idx;
@@ -30,7 +30,7 @@ public class PaperEjectCommand : BaseCommand
             _n = (byte)c;
             _m = 0;
             _t = 0;
-            if (_n == 3 || _n == 32) return true;
+            if (_n == 3 || _n == 8 || _n == 32) return true;
         }
         else if (_idx == 1)
         {
