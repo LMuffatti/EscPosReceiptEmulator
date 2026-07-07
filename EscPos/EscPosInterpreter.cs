@@ -62,6 +62,7 @@ public class EscPosInterpreter
         RegisterCommand(new PaperPartialCut()); // 0x1B, 0x69
         RegisterCommand(new PaperPrintFeednLines()); // 0x1B, 0x64
         RegisterCommand(new PaperPrintFeed()); // 0x1B, 0x4A, n
+        RegisterCommand(new PrintRasterBitImageCommandSanei()); // 0x1b, 0x62, x, yL, yH, d1...dk
         
         // FS = 0x1C
         RegisterCommand(new PrintStoredLogo()); // 0x1C, 0x70, n, m
