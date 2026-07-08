@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using ReceiptPrinterEmulator.Emulator.Abstraction;
 using ReceiptPrinterEmulator.Emulator.Enums;
+using ReceiptPrinterEmulator.Logging;
 
 namespace ReceiptPrinterEmulator.Emulator.Printables;
 
@@ -15,6 +16,8 @@ public class ReceiptTextLine : IReceiptPrintable
     private readonly bool _bold;
     private readonly bool _italic;
     private readonly UnderlineMode _underline;
+    private const float UnderlHeightMult = 1.3f;
+    private const float ScaleMult = 1.5f;
 
     private int _totalWidth;
     private readonly List<(string text, PrintMode mode)> _strings = new();
@@ -82,7 +85,7 @@ public class ReceiptTextLine : IReceiptPrintable
             if (mode.Italic) fontStyle |= FontStyle.Italic;
             using var font = new Font(_font.RenderFont, baseCharHeight, fontStyle);
             SizeF baseSize = g.MeasureString(text, font, int.MaxValue, StringFormat.GenericTypographic);
-            float scaledWidth = baseSize.Width * mode.CharWidthScale;
+            float scaledWidth = baseSize.Width * mode.CharWidthScale * (float)1.5;
             runWidths.Add(scaledWidth);
             totalWidth += scaledWidth;
         }
@@ -102,9 +105,9 @@ public class ReceiptTextLine : IReceiptPrintable
         foreach (var (_, mode) in _strings)
         {
             int baseCharHeight = _font.CharacterHeight / 2;
-            int charHeight = baseCharHeight * mode.CharHeightScale;
+            int charHeight = (int)(baseCharHeight * mode.CharHeightScale * (float)1.5);
             using var font = new Font(_font.RenderFont, baseCharHeight, FontStyle.Regular);
-            var ascent = font.FontFamily.GetCellAscent(font.Style) * font.Size / font.FontFamily.GetEmHeight(font.Style) * mode.CharHeightScale;
+            var ascent = font.FontFamily.GetCellAscent(font.Style) * font.Size / font.FontFamily.GetEmHeight(font.Style) * mode.CharHeightScale * (float)1.5;
             if (charHeight > maxCharHeight)
                 maxCharHeight = charHeight;
             if (ascent > maxAscent)
@@ -115,7 +118,7 @@ public class ReceiptTextLine : IReceiptPrintable
         {
             int baseCharWidth = _font.CharacterWidth / 2;
             int baseCharHeight = _font.CharacterHeight / 2;
-            int charHeight = baseCharHeight * mode.CharHeightScale;
+            int charHeight = (int)(0.5 + baseCharHeight * mode.CharHeightScale * (float)1.7);
 
             var fontStyle = FontStyle.Regular;
             if (mode.Emphasize) fontStyle |= FontStyle.Bold;
@@ -129,13 +132,13 @@ public class ReceiptTextLine : IReceiptPrintable
 
             // Measure the string width in base font, then scale
             SizeF baseSize = g.MeasureString(text, font, int.MaxValue, StringFormat.GenericTypographic);
-            float scaledWidth = baseSize.Width * mode.CharWidthScale;
+            float scaledWidth = baseSize.Width * mode.CharWidthScale * ScaleMult;
 
             var state = g.Save();
 
             // Align baseline of run to line baseline
-            g.TranslateTransform(x, offsetY + baselineOffset);
-            g.ScaleTransform(mode.CharWidthScale, mode.CharHeightScale);
+            g.TranslateTransform(x, offsetY); // + baselineOffset);
+            g.ScaleTransform(mode.CharWidthScale * ScaleMult, mode.CharHeightScale * ScaleMult);
 
             g.DrawString(text, font, Brushes.Black, 0, 0, StringFormat.GenericTypographic);
 
@@ -143,7 +146,7 @@ public class ReceiptTextLine : IReceiptPrintable
             if (mode.Underline is UnderlineMode.OnOneDot or UnderlineMode.OnTwoDots)
             {
                 var dotHeight = (mode.Underline is UnderlineMode.OnTwoDots ? 2 : 1);
-                g.DrawLine(new Pen(Color.Black, dotHeight), 0, baseCharHeight*2, baseSize.Width, baseCharHeight*2);
+                g.DrawLine(new Pen(Color.Black, dotHeight), 0, baseCharHeight * UnderlHeightMult, baseSize.Width, baseCharHeight * UnderlHeightMult);
             }
 
             g.Restore(state);
