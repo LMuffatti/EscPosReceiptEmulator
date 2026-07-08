@@ -132,8 +132,19 @@ public class EscPosInterpreter
                 if (!shouldContinue)
                 {
                     var finalArgs = FinalizeCommandBuffer();
+                    int len = finalArgs.Length;
+                    string byteText = "";
+                    
+                    // Format up to 8 characters of arguments
+                    if (len > 8) len = 8;
+                    for (var j = 0; j < len; j++) 
+                    {
+                        byteText += string.Format("0x{0:X2}", (int)finalArgs[j]);
+                        if (j != len - 1) byteText += ", "; // Args separator
+                    }
+                    if (len < finalArgs.Length) byteText += " ..."; // For the remaining characters 
 
-                    Logger.Info($"Execute [{_activeCommand.GetType().Name}] with args [{finalArgs}]");
+                    Logger.Info($"Execute [{_activeCommand.GetType().Name}] with args [{byteText}]");
 
                     _activeCommand.Execute(_printer, finalArgs);
                     _activeCommand = null;
@@ -231,7 +242,7 @@ public class EscPosInterpreter
             if (currentChar == ESC || currentChar == FS || currentChar == GS)
             {
                 // ESC, FS and GS commands - begin command mode
-                //_printer.PrintText(FinalizePrintBuffer());
+                _printer.PrintText(FinalizePrintBuffer());
                 _interpretingCommandPrefix = true;
 
                 _commandBuffer.Clear();
